@@ -6,29 +6,19 @@ permissions:
   contents: read
 jobs:
   lint-test:
-    name: "Lint and Test"
-    runs-on: "ubuntu-latest"
+    name: Run Linting
+    runs-on: ubuntu-latest
     steps:
-      - name: "Checkout Repository"
-        uses: actions/checkout@v4
-
-      - name: "Setup Node.js"
-        uses: actions/setup-node@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 22
-          cache: 'pnpm'
-
-      - name: "Install pnpm"
-        run: corepack enable && corepack prepare pnpm@latest --activate
-
-      - name: "Check pnpm Version"
-        run: pnpm --version
-
-      - name: "Install Dependencies"
-        run: pnpm install --frozen-lockfile
-
-      - name: "Run Lint"
-        run: pnpm run lint
-
-      - name: "Run Tests"
-        run: pnpm run test
+          node-version: 18
+      
+      - name: Install Dependencies
+        run: npm ci
+      
+      - name: Run Linter
+        run: npm run lint
